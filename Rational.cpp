@@ -1,9 +1,14 @@
+#include <stdexcept>
 #include "Rational.h"
 
 using namespace std;
 
 Rational::Rational() : numerator(0), denominator(1) {}
+
+
 Rational::Rational(int num, int den) : numerator(num), denominator(den) {
+    if (den == 0)
+        throw invalid_argument("Denominator cannot be zero");
     reduce();
 }
 void Rational::reduce() {
@@ -45,6 +50,8 @@ Rational Rational::operator*(const Rational& other) const {
     return result;
 }
 Rational Rational::operator/(const Rational& other) const {
+    if (other.numerator == 0)
+        throw invalid_argument("Division by zero");
     int num = numerator * other.denominator;
     int den = denominator * other.numerator;
     Rational result(num, den);
