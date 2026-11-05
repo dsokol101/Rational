@@ -1,6 +1,6 @@
 #Rational class
 Operator Overloading
-This is the code from class 3/18/2025
+This is the code from class
 
 In Java, if you have a binary operator, e.g. add
 
