@@ -11,8 +11,8 @@ private:
 
 public:
     Rational();
+    Rational(int);
     Rational(int, int);
-    Rational operator+(const Rational &) const;
     void print() const;
 
     //Rational operator=(const Rational &); // assignment not necessary here
@@ -31,11 +31,16 @@ public:
     // instead of .equals() method of Java
     bool operator==(const Rational &) const;
     bool operator!=(const Rational &) const;
+    // overload casting operator
+    explicit operator double() const;
+    friend Rational operator+(const Rational& lhs, const Rational& rhs);
     //void operator++(); // prefix increment
     //Rational operator++(int); // postfix increment
     // instead of .toString() method of Java
-    //friend ostream& operator<<(ostream& os, const Rational& r);
+    friend std::ostream& operator<<(std::ostream& os, const Rational& r);
     // instead of writing a .read() method
-    //friend istream& operator>>(istream&, Rational&);
+    friend std::istream& operator>>(std::istream&, Rational&);
 };
+// global fuction
+
 #endif
