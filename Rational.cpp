@@ -4,7 +4,7 @@
 using namespace std;
 
 Rational::Rational() : numerator(0), denominator(1) {}
-Rational::Rational(int num) : numerator(num), denominator(1) {}
+Rational::Rational(int num) : Rational(num, 1) {}
 Rational::Rational(int num, int den) : numerator(num), denominator(den) {
     if (den == 0)
         throw invalid_argument("Denominator cannot be zero");
@@ -72,6 +72,37 @@ bool Rational::operator!=(const Rational& other) const {
 // cast operator from double data type
 Rational::operator double() const {
     return static_cast<double>(numerator) / denominator;
+}
+// special member function for assignment operator
+Rational Rational::operator=(const Rational& other) {
+    if (this != &other) { // check for self-assignment
+        numerator = other.numerator;
+        denominator = other.denominator;
+    }
+    return *this;
+}
+Rational Rational::operator+=(const Rational& other) {
+    numerator = numerator * other.denominator + other.numerator * denominator;
+    denominator *= other.denominator;
+    reduce(); // call reduce on this object
+    return *this;
+}
+Rational Rational::operator-=(const Rational& other) {
+    numerator = numerator * other.denominator - other.numerator * denominator;
+    denominator *= other.denominator;
+    reduce(); 
+    return *this;
+}
+Rational& Rational::operator++() { // prefix increment
+    numerator += denominator; // add 1 to the rational number
+    reduce(); // reduce the result
+    return *this; // return the modified object
+}
+Rational Rational::operator++(int) { // postfix increment
+    Rational temp{*this}; // create a copy of the current object
+    numerator += denominator; // add 1 to the rational number
+    reduce(); // reduce the result
+    return temp; // return the original value before increment
 }
 // global operators (these are friend functions of the Rational class)
 Rational operator+(const Rational& lhs, const Rational& rhs) {

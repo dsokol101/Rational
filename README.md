@@ -33,6 +33,7 @@ Rational r3 = r1.add(r2);
 In C++, you can overload the `+` operator so the same operation reads naturally:
 
 ```cpp
+instead of: r1.operator+(r2) (which btw would work)
 Rational r3 = r1 + r2;
 ```
 
